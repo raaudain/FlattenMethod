@@ -1,44 +1,11 @@
+// Solution found here: https://stackoverflow.com/questions/50993498/flat-is-not-a-function-whats-wrong
 
-
-Array.prototype.flatten = function(n, array = []){
-  if (n < 1) return array;
-  //let array;
-  
-  if (n >= 1 || !n) array = this.reduce((acc, val) => Array.isArray(val) ? acc.concat(val) : acc.concat(val), []);
-  console.log(n, array)
-  // else{
-  // const stack = [...this];
-  // const res = [];
-
-  // while (n--){
-  //   const next = stack.pop();
-
-  //   if (Array.isArray(next)) stack.push(...next);
-  //   else res.push(next)
-  // }
-  
-  // console.log(stack, res)
-  // return this.flatten(n-1);
-  
-  // else return array = this.reduce((acc, val) => {
-  //   console.log(val)
-  //   if (Array.isArray(val)) {
-  //     //console.log(n)
-  //     acc.concat(val);
-  //     //n--;
-  //     return this.flatten(n-1)
-  //   }
-    
-  //   else {
-  //     // console.log(acc)
-  //     return acc.concat(val)
-  //   }
-  // }, []);
-  // console.log(array)
-  return array = this.flatten(n-1, array)
+Array.prototype.flatten = function(depth) {
+  return this.reduce((acc, val) => acc.concat(Array.isArray(val) && depth > 1 
+  ? val.flatten(depth - 1) : val), []);
 }
 
-const arr = [[1,2], 6, [3,[4,5]]] 
 
-//console.log(arr.flatten())
-arr.flatten()
+const arr = [1,[2],[3,4],[[[5]]]];
+
+arr.flatten(2)
